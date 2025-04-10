@@ -14,7 +14,7 @@ export async function run(): Promise<void> {
     core.debug(`Git mirror path ${gitMirrorPath}`)
     if (!gitMirrorPath || !fs.existsSync(gitMirrorPath)) {
       let hint = `Please update your \x1b[1mruns-on\x1b[0m labels. E.g.:
-      
+
   \x1b[32mruns-on\x1b[34m:\x1b[0m
     - \x1b[34mnscloud-ubuntu-22.04-amd64-8x16-\x1b[1mwith-cache\x1b[0m
     - \x1b[34m\x1b[1mnscloud-git-mirror-5gb\x1b[0m`
@@ -265,7 +265,7 @@ interface ICheckoutInfo {
   startPoint: string
 }
 
-function getCheckoutInfo(ref: string, commit: string): ICheckoutInfo {
+export function getCheckoutInfo(ref: string, commit: string): ICheckoutInfo {
   if (!ref && !commit) {
     throw new Error('Args ref and commit cannot both be empty')
   }
