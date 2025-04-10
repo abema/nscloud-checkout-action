@@ -1,4 +1,4 @@
-import {getCheckoutInfo} from './main'
+import { getCheckoutInfo } from './main'
 
 describe('getCheckoutInfo', () => {
   it('throws error when ref and commit are both empty', () => {
@@ -68,6 +68,15 @@ describe('getCheckoutInfo', () => {
     expect(result).toEqual({
       ref: 'main',
       startPoint: 'refs/remotes/origin/main'
+    })
+  })
+
+  it('handles simple branch name correctly', () => {
+    const ref = 'peaceiris-patch-1'
+    const result = getCheckoutInfo(ref, '')
+    expect(result).toEqual({
+      ref: 'peaceiris-patch-1',
+      startPoint: 'refs/remotes/origin/peaceiris-patch-1'
     })
   })
 })

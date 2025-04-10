@@ -296,6 +296,11 @@ export function getCheckoutInfo(ref: string, commit: string): ICheckoutInfo {
   else if (upperRef.startsWith('REFS/')) {
     result.ref = ref
   }
+  // github.head_ref
+  else {
+    result.ref = ref
+    result.startPoint = `refs/remotes/origin/${ref}`
+  }
 
   return result
 }

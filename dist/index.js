@@ -10891,7 +10891,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
+exports.getCheckoutInfo = exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const exec = __importStar(__nccwpck_require__(1514));
@@ -10905,7 +10905,7 @@ async function run() {
         core.debug(`Git mirror path ${gitMirrorPath}`);
         if (!gitMirrorPath || !fs.existsSync(gitMirrorPath)) {
             let hint = `Please update your \x1b[1mruns-on\x1b[0m labels. E.g.:
-      
+
   \x1b[32mruns-on\x1b[34m:\x1b[0m
     - \x1b[34mnscloud-ubuntu-22.04-amd64-8x16-\x1b[1mwith-cache\x1b[0m
     - \x1b[34m\x1b[1mnscloud-git-mirror-5gb\x1b[0m`;
@@ -11113,8 +11113,14 @@ function getCheckoutInfo(ref, commit) {
     else if (upperRef.startsWith('REFS/')) {
         result.ref = ref;
     }
+    // github.head_ref
+    else {
+        result.ref = ref;
+        result.startPoint = `refs/remotes/origin/${ref}`;
+    }
     return result;
 }
+exports.getCheckoutInfo = getCheckoutInfo;
 function getFetchInfo(ref, commit) {
     if (!ref && !commit) {
         throw new Error('Args ref and commit cannot both be empty');
